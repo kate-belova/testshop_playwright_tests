@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from typing import Any, Generator
 
@@ -8,7 +9,10 @@ from browser_settings.browser_launcher import BrowserLauncher
 from pages import CartPage, MainPage, AlertPage, DesksPage, ProductPage
 from test_data import product_index
 
-CONFIG_PATH = Path(__file__).parent / 'config_browser.yaml'
+if os.getenv('GITHUB_ACTIONS'):
+    CONFIG_PATH = Path(__file__).parent / 'config_browser_ci.yaml'
+else:
+    CONFIG_PATH = Path(__file__).parent / 'config_browser.yaml'
 
 
 def pytest_configure(config):
