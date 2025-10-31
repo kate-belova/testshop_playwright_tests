@@ -5,3 +5,5 @@ launch:
   headless: true
   args:
     - "--lang=en-US"
+    - "--no-sandbox"
+    - "--disable-dev-shm-usage"
