@@ -11,15 +11,11 @@ pipeline {
         stage('Setup Python Environment') {
             steps {
                 sh '''
-                    echo "=== Environment Check ==="
                     echo "Python version:"
                     python3 --version
 
                     echo "Playwright version:"
                     playwright --version
-
-                    echo "Available Playwright browsers:"
-                    ls -la /root/.cache/ms-playwright/
 
                     python3 -m venv venv
                     . venv/bin/activate
@@ -34,7 +30,7 @@ pipeline {
             steps {
                 sh '''
                     . venv/bin/activate
-                    echo "Running Playwright tests with global browsers..."
+                    echo "Running Playwright tests..."
                     python -m pytest --alluredir=allure-results -v
                 '''
             }
