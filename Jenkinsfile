@@ -1,26 +1,47 @@
 pipeline {
-    agent any
+	agent any
 
-    stages {
-        stage('Run Tests') {
-            steps {
-                sh '''
+	stages {
+		stage('Checkout') {
+			steps {
+				checkout scm
+			}
+		}
+
+		stage('Setup Python Environment') {
+			steps {
+				sh '''
                     python3 -m venv venv
-                    venv/bin/pip install -r requirements.txt
-                    venv/bin/pytest
-                '''
-            }
-        }
-    }
+                    . venv/bin/activate
 
-    post {
-        always {
-            allure([
-                includeProperties: false,
-                jdk: '',
-                reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'allure-results']]
-            ])
-        }
-    }
+                    pip install -r requirements.txt
+                '''
+			}
+		}
+
+		stage('Run Tests') {
+			steps {
+				sh '''
+				. venv/bin/activate
+                pytest
+                '''
+			}
+		}
+	}
+
+	post {
+		always {
+			allure includeProperties: false,
+			jdk: '',
+			results: [[path: 'allure-results']]
+		}
+
+		success {
+			echo '✅ All tests passed successfully!'
+		}
+
+		failure {
+			echo '❌ Tests failed!'
+		}
+	}
 }
