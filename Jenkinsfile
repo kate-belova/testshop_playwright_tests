@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        allure 'allure'
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -12,21 +8,16 @@ pipeline {
             }
         }
 
-        stage('Setup Environment') {
-            steps {
-                sh '''
-                    python3 -m venv venv
-                    . venv/bin/activate
-                    pip install -r requirements.txt
-                '''
-            }
-        }
-
         stage('Run Tests') {
             steps {
                 sh '''
-                    . venv/bin/activate
-                    python -m pytest --alluredir=allure-results -v -s
+                    cd testshop_playwright_tests
+                    git pull
+
+                    python3 -m venv venv
+                    venv/bin/pip install -r requirements.txt
+
+                    venv/bin/pytest
                 '''
             }
         }
@@ -37,7 +28,8 @@ pipeline {
             allure([
                 includeProperties: false,
                 jdk: '',
-                results: [[path: 'allure-results']]
+                reportBuildPolicy: 'ALWAYS',
+                results: [[path: 'testshop_playwright_tests/allure-results']]
             ])
         }
     }
