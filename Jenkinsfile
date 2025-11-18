@@ -5,18 +5,23 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh '''
-                    mkdir -p allure-results-new
+                    echo "=== Cleaning previous results ==="
+                    rm -rf allure-results
 
+                    echo "=== Setting up environment ==="
                     python3 -m venv venv
                     venv/bin/pip install -r requirements.txt
-                    venv/bin/pytest --alluredir=allure-results-new
+                    venv/bin/pip install allure-pytest allure-python-commons
 
-                    if [ -d "allure-results/history" ]; then
-                        cp -r allure-results/history allure-results-new/
-                    fi
+                    echo "=== Checking installed packages ==="
+                    venv/bin/pip list | grep allure
 
-                    rm -rf allure-results
-                    mv allure-results-new allure-results
+                    echo "=== Running tests ==="
+                    venv/bin/pytest -v
+
+                    echo "=== Checking allure results ==="
+                    ls -la allure-results/
+                    find allure-results -name "*.json" | wc -l
                 '''
             }
         }
