@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        allure 'allure'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -13,9 +17,6 @@ pipeline {
                 sh '''
                     echo "Python version:"
                     python3 --version
-
-                    echo "Playwright version:"
-                    playwright --version
 
                     python3 -m venv venv
                     . venv/bin/activate
@@ -39,7 +40,11 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'allure-results/**/*', fingerprint: true
+            allure([
+                includeProperties: false,
+                jdk: '',
+                results: [[path: 'allure-results']]
+            ])
             echo "Build completed with status: ${currentBuild.result}"
         }
 
