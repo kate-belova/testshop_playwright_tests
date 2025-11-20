@@ -1,0 +1,8 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","1459","Product has all the necessary details","tests","Thu Nov 20 19:31:23 UTC 2025","passed","Thu Nov 20 19:31:24 UTC 2025","TestProductPage","product_page_tests","",""
+"","241","Successfully search products by their titles on Product page","tests","Thu Nov 20 19:31:28 UTC 2025","passed","Thu Nov 20 19:31:28 UTC 2025","TestProductPage","product_page_tests","",""
+"","3135","Successfully add product to cart from Product page","tests","Thu Nov 20 19:31:23 UTC 2025","passed","Thu Nov 20 19:31:26 UTC 2025","TestProductPage","product_page_tests","",""
+"","281","Successfully search products by their titles on Product page","tests","Thu Nov 20 19:31:23 UTC 2025","passed","Thu Nov 20 19:31:23 UTC 2025","TestProductPage","product_page_tests","",""
+"","648","Successfully search products by their titles on Product page","tests","Thu Nov 20 19:31:27 UTC 2025","passed","Thu Nov 20 19:31:27 UTC 2025","TestProductPage","product_page_tests","",""
+"","210","Successfully search products by their titles on Product page","tests","Thu Nov 20 19:31:29 UTC 2025","passed","Thu Nov 20 19:31:29 UTC 2025","TestProductPage","product_page_tests","",""
+"","2555","Successfully add product to cart from Product page","tests","Thu Nov 20 19:31:23 UTC 2025","passed","Thu Nov 20 19:31:25 UTC 2025","TestProductPage","product_page_tests","",""
